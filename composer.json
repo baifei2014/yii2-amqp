@@ -7,7 +7,7 @@
     "rabbitmq",
     "amqp",
     "queue",
-    "package",
+    "package"
   ],
   "license": "MIT",
   "require": {
