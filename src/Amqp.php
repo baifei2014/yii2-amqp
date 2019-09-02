@@ -3,6 +3,7 @@
 namespace Long\Amqp;
 
 use Yii;
+use Closure;
 
 class Amqp
 {
@@ -16,7 +17,7 @@ class Amqp
         $properties['routing'] = $routing;
 
         /* @var Publisher $publisher */
-        $publisher = Yii::$app->get('Long\Amqp\Publisher');
+        $publisher = Yii::$container->get('Long\Amqp\Publisher');
         $publisher
             ->mergeProperties($properties)
             ->setup();
@@ -40,7 +41,7 @@ class Amqp
         $properties['queue'] = $queue;
 
         /* @var Consumer $consumer */
-        $consumer = app()->make('Long\Amqp\Consumer');
+        $consumer = Yii::$container->get('Long\Amqp\Consumer');
         $consumer
             ->mergeProperties($properties)
             ->setup();

@@ -35,7 +35,7 @@ $ php composer require long/yii2-amqp
 ### Yii2
 
 Create a **config** folder in the root directory of your yii2 application and copy the content
-from **vendor/bschmitt/laravel-amqp/config/amqp.php** to **config/params.php**.
+from **vendor/bschmitt/laravel-amqp/config/amqp.php** to **config/params-local.php**.
 
 Adjust the properties to your needs.
 
@@ -68,7 +68,7 @@ return [
 ];
 ```
 
-Register the Lumen Service Provider in **bootstrap/app.php**:
+Register the Component in **config/main.php**:
 
 ```php
 /*
@@ -78,54 +78,59 @@ Register the Lumen Service Provider in **bootstrap/app.php**:
 */
 
 //...
-
-$app->configure('amqp');
-$app->register(Bschmitt\Amqp\LumenServiceProvider::class);
+'components' => [
+    'Amqp' => [
+        'class' => 'Long\Amqp\Amqp'
+    ]
+]
 
 //...
 ```
 
-Add Facade Support for Lumen 5.2+
 
-```php
-//...
-$app->withFacades();
-class_alias(\Illuminate\Support\Facades\App::class, 'App');
-//...
-```
-
-
-### Laravel
-
-Open **config/app.php** and add the service provider and alias:
-
-```php
-'Bschmitt\Amqp\AmqpServiceProvider',
-```
-
-```php
-'Amqp' => 'Bschmitt\Amqp\Facades\Amqp',
-```
-
+### Yii2
 
 ## Publishing a message
 
 ### Push message with routing key
 
+方法1:
 ```php
-    Amqp::publish('routing-key', 'message');
+    $amqp = new Amqp;
+    $amqp->publish('routing-key', 'message');
 ```
+
+方法2:
+```php
+    Yii::$app->Amqp->publish('routing-key', 'message');
+```
+
 
 ### Push message with routing key and create queue
 
+方法1:
 ```php	
-    Amqp::publish('routing-key', 'message' , ['queue' => 'queue-name']);
+    $amqp = new Amqp;
+    $amqp->publish('routing-key', 'message' , ['queue' => 'queue-name']);
+```
+
+方法2:
+```php
+    Yii::$app->Amqp->publish('routing-key', 'message' , ['queue' => 'queue-name']);
 ```
 
 ### Push message with routing key and overwrite properties
 
+方法1:
+```php  
+    $amqp = new Amqp;
+    $amqp->publish('routing-key', 'message' , ['exchange' => 'amq.direct']);
+```
+
+
+方法2:
 ```php	
-    Amqp::publish('routing-key', 'message' , ['exchange' => 'amq.direct']);
+    Yii::$app->Amqp->publish('routing-key', 'message' , ['exchange' => 'amq.direct']);
 ```
 
 
@@ -133,9 +138,24 @@ Open **config/app.php** and add the service provider and alias:
 
 ### Consume messages, acknowledge and stop when no message is left
 
+方法1:
 ```php
-Amqp::consume('queue-name', function ($message, $resolver) {
+$amqp = new Amqp;
+$amqp->consume('queue-name', function ($message, $resolver) {
     		
+   var_dump($message->body);
+
+   $resolver->acknowledge($message);
+
+   $resolver->stopWhenProcessed();
+        
+});
+```
+
+方法2:
+```php
+Yii::$ap->Amqp->consume('queue-name', function ($message, $resolver) {
+        
    var_dump($message->body);
 
    $resolver->acknowledge($message);
@@ -147,9 +167,22 @@ Amqp::consume('queue-name', function ($message, $resolver) {
 
 ### Consume messages forever
 
+方法1:
 ```php
-Amqp::consume('queue-name', function ($message, $resolver) {
+$amqp = new Amqp;
+$amqp->consume('queue-name', function ($message, $resolver) {
     		
+   var_dump($message->body);
+
+   $resolver->acknowledge($message);
+        
+});
+```
+
+方法2:
+```php
+Yii::$app->Amqp->consume('queue-name', function ($message, $resolver) {
+        
    var_dump($message->body);
 
    $resolver->acknowledge($message);
@@ -159,8 +192,10 @@ Amqp::consume('queue-name', function ($message, $resolver) {
 
 ### Consume messages, with custom settings
 
+方法1:
 ```php
-Amqp::consume('queue-name', function ($message, $resolver) {
+$amqp = new Amqp;
+$amqp->consume('queue-name', function ($message, $resolver) {
     		
    var_dump($message->body);
 
@@ -172,12 +207,36 @@ Amqp::consume('queue-name', function ($message, $resolver) {
 ]);
 ```
 
+方法2:
+```php
+Yii::$app->Amqp->consume('queue-name', function ($message, $resolver) {
+        
+   var_dump($message->body);
+
+   $resolver->acknowledge($message);
+      
+}, [
+  'timeout' => 2,
+  'vhost'   => 'vhost3'
+]);
+```
+
 ## Fanout example
 
 ### Publishing a message
 
+方法1:
 ```php
-\Amqp::publish('', 'message' , [
+$amqp = new Amqp;
+$amqp->publish('', 'message' , [
+    'exchange_type' => 'fanout',
+    'exchange' => 'amq.fanout',
+]);
+```
+
+方法2:
+```php
+Yii::$app->Amqp->publish('', 'message' , [
     'exchange_type' => 'fanout',
     'exchange' => 'amq.fanout',
 ]);
@@ -185,8 +244,24 @@ Amqp::consume('queue-name', function ($message, $resolver) {
 
 ### Consuming messages
 
+方法1:
 ```php
-\Amqp::consume('', function ($message, $resolver) {
+$amqp = new Amqp;
+$amqp->consume('', function ($message, $resolver) {
+    var_dump($message->body);
+    $resolver->acknowledge($message);
+}, [
+    'exchange' => 'amq.fanout',
+    'exchange_type' => 'fanout',
+    'queue_force_declare' => true,
+    'queue_exclusive' => true,
+    'persistent' => true// required if you want to listen forever
+]);
+```
+
+方法2:
+```php
+Yii::$app->Amqp->consume('', function ($message, $resolver) {
     var_dump($message->body);
     $resolver->acknowledge($message);
 }, [
