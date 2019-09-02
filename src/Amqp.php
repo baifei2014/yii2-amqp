@@ -16,7 +16,7 @@ class Amqp
         $properties['routing'] = $routing;
 
         /* @var Publisher $publisher */
-        $publisher = Yii::$app->get('Bschmitt\Amqp\Publisher');
+        $publisher = Yii::$app->get('Long\Amqp\Publisher');
         $publisher
             ->mergeProperties($properties)
             ->setup();
@@ -40,7 +40,7 @@ class Amqp
         $properties['queue'] = $queue;
 
         /* @var Consumer $consumer */
-        $consumer = app()->make('Bschmitt\Amqp\Consumer');
+        $consumer = app()->make('Long\Amqp\Consumer');
         $consumer
             ->mergeProperties($properties)
             ->setup();
@@ -52,7 +52,7 @@ class Amqp
     /**
      * @param string $body
      * @param array  $properties
-     * @return \Bschmitt\Amqp\Message
+     * @return \Long\Amqp\Message
      */
     public function message($body, $properties = [])
     {
