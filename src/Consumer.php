@@ -1,13 +1,13 @@
 <?php
 
-namespace Long\Amqp;
+namespace Longhao\Amqp;
 
 use Closure;
 use PhpAmqpLib\Exception\AMQPTimeoutException;
 use PhpAmqpLib\Message\AMQPMessage;
 
 /**
- * @author Björn Schmitt <code@bjoern.io>
+ * @author jianglonghao <759395919@qq.com>
  */
 class Consumer extends Request
 {

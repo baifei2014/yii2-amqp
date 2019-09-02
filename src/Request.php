@@ -1,13 +1,13 @@
 <?php
 
-namespace Long\Amqp;
+namespace Longhao\Amqp;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Connection\AMQPSSLConnection;
 use PhpAmqpLib\Channel\AMQPChannel;
 
 /**
- * @author Björn Schmitt <code@bjoern.io>
+ * @author jianglonghao <759395919@qq.com>
  */
 class Request extends Context
 {

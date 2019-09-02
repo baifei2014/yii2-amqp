@@ -18,7 +18,7 @@ AMQP wrapper for Yii2 to publish and consume messages especially from RabbitMQ
 Add the following to your require part within the composer.json: 
 
 ```js
-"long/yii2-amqp": "dev-master"
+"longhao/yii2-amqp": "dev-master"
 ```
 ```batch
 $ php composer update
@@ -27,7 +27,7 @@ $ php composer update
 or
 
 ```
-$ php composer require long/yii2-amqp
+$ php composer require longhao/yii2-amqp
 ```
 
 ## Integration
@@ -73,20 +73,21 @@ Register the Component in **config/main.php**:
 ```php
 /*
 |--------------------------------------------------------------------------
-| Register Service Providers
+| Register Component
 |--------------------------------------------------------------------------
 */
 
 //...
 'components' => [
     'Amqp' => [
-        'class' => 'Long\Amqp\Amqp'
+        'class' => 'Longhao\Amqp\Amqp'
     ]
 ]
 
 //...
 ```
 
+Register component is not necessary.
 
 ### Yii2
 
@@ -94,13 +95,13 @@ Register the Component in **config/main.php**:
 
 ### Push message with routing key
 
-方法1:
+eg 1:
 ```php
     $amqp = new Amqp;
     $amqp->publish('routing-key', 'message');
 ```
 
-方法2:
+eg 2:
 ```php
     Yii::$app->Amqp->publish('routing-key', 'message');
 ```
@@ -108,27 +109,27 @@ Register the Component in **config/main.php**:
 
 ### Push message with routing key and create queue
 
-方法1:
+eg 1:
 ```php	
     $amqp = new Amqp;
     $amqp->publish('routing-key', 'message' , ['queue' => 'queue-name']);
 ```
 
-方法2:
+eg 2:
 ```php
     Yii::$app->Amqp->publish('routing-key', 'message' , ['queue' => 'queue-name']);
 ```
 
 ### Push message with routing key and overwrite properties
 
-方法1:
+eg 1:
 ```php  
     $amqp = new Amqp;
     $amqp->publish('routing-key', 'message' , ['exchange' => 'amq.direct']);
 ```
 
 
-方法2:
+eg 2:
 ```php	
     Yii::$app->Amqp->publish('routing-key', 'message' , ['exchange' => 'amq.direct']);
 ```
@@ -138,7 +139,7 @@ Register the Component in **config/main.php**:
 
 ### Consume messages, acknowledge and stop when no message is left
 
-方法1:
+eg 1:
 ```php
 $amqp = new Amqp;
 $amqp->consume('queue-name', function ($message, $resolver) {
@@ -152,7 +153,7 @@ $amqp->consume('queue-name', function ($message, $resolver) {
 });
 ```
 
-方法2:
+eg 2:
 ```php
 Yii::$ap->Amqp->consume('queue-name', function ($message, $resolver) {
         
@@ -167,7 +168,7 @@ Yii::$ap->Amqp->consume('queue-name', function ($message, $resolver) {
 
 ### Consume messages forever
 
-方法1:
+eg 1:
 ```php
 $amqp = new Amqp;
 $amqp->consume('queue-name', function ($message, $resolver) {
@@ -179,7 +180,7 @@ $amqp->consume('queue-name', function ($message, $resolver) {
 });
 ```
 
-方法2:
+eg 2:
 ```php
 Yii::$app->Amqp->consume('queue-name', function ($message, $resolver) {
         
@@ -192,7 +193,7 @@ Yii::$app->Amqp->consume('queue-name', function ($message, $resolver) {
 
 ### Consume messages, with custom settings
 
-方法1:
+eg 1:
 ```php
 $amqp = new Amqp;
 $amqp->consume('queue-name', function ($message, $resolver) {
@@ -207,7 +208,7 @@ $amqp->consume('queue-name', function ($message, $resolver) {
 ]);
 ```
 
-方法2:
+eg 2:
 ```php
 Yii::$app->Amqp->consume('queue-name', function ($message, $resolver) {
         
@@ -225,7 +226,7 @@ Yii::$app->Amqp->consume('queue-name', function ($message, $resolver) {
 
 ### Publishing a message
 
-方法1:
+eg 1:
 ```php
 $amqp = new Amqp;
 $amqp->publish('', 'message' , [
@@ -234,7 +235,7 @@ $amqp->publish('', 'message' , [
 ]);
 ```
 
-方法2:
+eg 2:
 ```php
 Yii::$app->Amqp->publish('', 'message' , [
     'exchange_type' => 'fanout',
@@ -244,7 +245,7 @@ Yii::$app->Amqp->publish('', 'message' , [
 
 ### Consuming messages
 
-方法1:
+eg 1:
 ```php
 $amqp = new Amqp;
 $amqp->consume('', function ($message, $resolver) {
@@ -259,7 +260,7 @@ $amqp->consume('', function ($message, $resolver) {
 ]);
 ```
 
-方法2:
+eg 2:
 ```php
 Yii::$app->Amqp->consume('', function ($message, $resolver) {
     var_dump($message->body);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Long\Amqp;
+namespace Longhao\Amqp;
 
 use Yii;
 use Closure;
@@ -17,7 +17,7 @@ class Amqp
         $properties['routing'] = $routing;
 
         /* @var Publisher $publisher */
-        $publisher = Yii::$container->get('Long\Amqp\Publisher');
+        $publisher = Yii::$container->get('Longhao\Amqp\Publisher');
         $publisher
             ->mergeProperties($properties)
             ->setup();
@@ -41,7 +41,7 @@ class Amqp
         $properties['queue'] = $queue;
 
         /* @var Consumer $consumer */
-        $consumer = Yii::$container->get('Long\Amqp\Consumer');
+        $consumer = Yii::$container->get('Longhao\Amqp\Consumer');
         $consumer
             ->mergeProperties($properties)
             ->setup();
@@ -53,7 +53,7 @@ class Amqp
     /**
      * @param string $body
      * @param array  $properties
-     * @return \Long\Amqp\Message
+     * @return \Longhao\Amqp\Message
      */
     public function message($body, $properties = [])
     {

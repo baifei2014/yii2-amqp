@@ -1,11 +1,11 @@
 <?php
 
-namespace Long\Amqp;
+namespace Longhao\Amqp;
 
 use Yii;
 
 /**
- * @author Björn Schmitt <code@bjoern.io>
+ * @author jianglonghao <759395919@qq.com>
  */
 abstract class Context
 {

@@ -1,24 +1,33 @@
 {
-  "name": "long/yii2-amqp",
-  "description": "AMQP wrapper for Yii2 to publish and consume messages",
-  "keywords": [
-    "Yii",
-    "Yii2",
-    "rabbitmq",
-    "amqp",
-    "queue",
-    "package"
-  ],
-  "license": "MIT",
-  "require": {
-    "php": ">=7.0",
-    "php-amqplib/php-amqplib": "2.*",
-    "yiisoft/yii2": "~2.0.18"
-  },
-  "autoload": {
-    "psr-4": {
-      "Long\\Amqp\\": "src/"
-    }
-  },
-  "minimum-stability": "dev"
+    "name": "longhao/yii2-amqp",
+    "description": "AMQP wrapper for Yii2 to publish and consume messages",
+    "homepage": "https://www.likecho.com/",
+    "type": "project",
+    "author": [
+        {
+            "name": "jianglonghao",
+            "email": "759395919@qq.com",
+            "homepage": "http://blog.likecho.com"
+        }
+    ],
+    "keywords": [
+        "Yii",
+        "Yii2",
+        "rabbitmq",
+        "amqp",
+        "queue",
+        "package"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.0",
+        "php-amqplib/php-amqplib": "2.*",
+        "yiisoft/yii2": "~2.0.18"
+    },
+    "autoload": {
+        "psr-4": {
+            "Longhao\\Amqp\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
 }
