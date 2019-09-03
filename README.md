@@ -1,4 +1,4 @@
-# long/yii2-amqp
+# longhao/yii2-amqp
 AMQP wrapper for Yii2 to publish and consume messages especially from RabbitMQ
 
 [![Build Status](https://travis-ci.org/bschmitt/laravel-amqp.svg?branch=master)](https://travis-ci.org/bschmitt/laravel-amqp)
@@ -18,7 +18,7 @@ AMQP wrapper for Yii2 to publish and consume messages especially from RabbitMQ
 Add the following to your require part within the composer.json: 
 
 ```js
-"longhao/yii2-amqp": "dev-master"
+"longhao/yii2-amqp": "1.*"
 ```
 ```batch
 $ php composer update
@@ -35,7 +35,7 @@ $ php composer require longhao/yii2-amqp
 ### Yii2
 
 Create a **config** folder in the root directory of your yii2 application and copy the content
-from **vendor/bschmitt/laravel-amqp/config/amqp.php** to **config/params-local.php**.
+from **vendor/longhao/yii2-amqp/config/amqp.php** to **common/config/params-local.php**.
 
 Adjust the properties to your needs.
 
@@ -68,7 +68,7 @@ return [
 ];
 ```
 
-Register the Component in **config/main.php**:
+Register the Component in **common/config/main.php**:
 
 ```php
 /*
