@@ -1,6 +1,6 @@
 <?php 
 
-namespace Longhao\Amqp;
+namespace Longhao\Amqp\Exception;
 
 /**
  * @author jianglonghao <759395919@qq.com>
