@@ -71,7 +71,7 @@ class Consumer extends Request
             while (count($this->getChannel()->callbacks)) {
                 $this->getChannel()->wait(
                     null,
-                    !$this->getProperty('blocking'),
+                    false,
                     $this->getProperty('timeout') ? $this->getProperty('timeout') : 0
                 );
             }
